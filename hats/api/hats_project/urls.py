@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from hats_rest.views import api_list_hats, api_show_hat
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('hats/', api_list_hats, name="create_hat"),
+    path(
+        'locations/<int:location_vo_id>/hats/',
+        api_list_hats,
+        name="list_hats",
+    )
+    path('hats/<int:pk>/', api_show_hat, name="api_show_hat")
 ]
