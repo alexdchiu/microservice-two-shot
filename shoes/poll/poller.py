@@ -12,11 +12,26 @@ django.setup()
 # Import models from hats_rest, here.
 # from shoes_rest.models import Something
 
+from shoes.api.shoes_rest.models import BinVO 
+
+def get_bins():
+    response = requests.get("http://localhost:8100/api/bins/")
+    content = json.loads(response.content)
+    for bin in content["bins"]:
+        BinVO.objects.update_or_create(
+            closet_name = bin["closet_name"],
+            bin_number = bin["bin_number"],
+            bin_size = bin["bin_size"], 
+            href = bin["href"],
+            #defaults might not be necessary 
+        )
+
+
 def poll():
     while True:
         print('Shoes poller polling for data')
         try:
-            # Write your polling logic, here
+            get_bins() 
             pass
         except Exception as e:
             print(e, file=sys.stderr)
