@@ -12,7 +12,7 @@ django.setup()
 # Import models from hats_rest, here.
 # from shoes_rest.models import Something
 
-from shoes.api.shoes_rest.models import BinVO 
+from shoes_rest.models import BinVO 
 
 def get_bins():
     response = requests.get("http://localhost:8100/api/bins/")

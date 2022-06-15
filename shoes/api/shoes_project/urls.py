@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from shoes.api.shoes_rest.views import api_list_shoes, api_show_shoe
+from shoes_rest.views import api_list_shoes, api_show_shoe
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("shoes/", api_list_shoes, name="create_shoe"),
@@ -25,6 +25,4 @@ urlpatterns = [
         name="list_shoes",
     ),
     path("shoes/<int:pk>/", api_show_shoe, name="api_show_shoe"),
-
-    
 ]
