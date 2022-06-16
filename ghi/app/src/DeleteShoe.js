@@ -22,7 +22,9 @@ class DeleteShoe extends React.Component {
         const data = {...this.state};
         delete data.shoes;
       
-        const shoeUrl = `http://localhost:8080/shoes/${data.shoes}`;
+        const shoeUrl = `http://localhost:8080/shoes/${data.name}/`;
+        console.log('shoeURL', shoeUrl)
+        console.log('data.name', data.name)
         const fetchConfig = {
           method: "DELETE",
           //body: JSON.stringify(data),
@@ -30,7 +32,6 @@ class DeleteShoe extends React.Component {
             'Content-Type': 'application/json',
           },
         };
-        //body and headers might not be ncessary? 
         const response = await fetch(shoeUrl, fetchConfig);
         if (response.ok) {
             const shoeDelete = await response.json();
