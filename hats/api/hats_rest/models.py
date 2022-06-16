@@ -1,6 +1,6 @@
 from stat import FILE_ATTRIBUTE_DIRECTORY
 from django.db import models
-# from django.urls import reverse
+from django.urls import reverse
 
 # Create your models here.
 class LocationVO(models.Model):
@@ -26,5 +26,5 @@ class Hat(models.Model):
   def __str__(self):
         return f'{self.style} - {self.color}'
 
-  # def get_api_url(self):
-  #       return reverse("api_show_hat", kwargs={"pk": self.pk})
+  def get_api_url(self):
+        return reverse("api_show_hat", kwargs={"pk": self.pk})

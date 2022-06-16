@@ -18,7 +18,9 @@ class HatListEncoder(ModelEncoder):
   properties = ["fabric", "style", "color", "pic_url", "id"]
 
   def get_extra_data(self, o):
-    return {"location": o.location.href}
+    return {
+      "location": o.location.href,
+    }
 
 class HatDetailEncoder(ModelEncoder):
   model = Hat
