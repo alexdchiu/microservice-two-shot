@@ -25,6 +25,12 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link" to="/hats">Hats</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/hats/new">Create Hats</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/hats/delete">Delete Hat</NavLink>
+            </li>
           </ul>
         </div>
       </div>

@@ -7,6 +7,7 @@ import CreateHatForm from './CreateHat';
 // import HatDetails from './HatDetails';
 import ShoeForm from './ShoeForm';
 import ShoesList from './ShoesList';
+import DeleteHat from './DeleteHat';
 
 
 
@@ -20,6 +21,7 @@ function App(props) {
           <Route path="/" element={<MainPage />} />
           <Route path="/hats" element={<HatsList hats={props.hats}/>} />
           <Route path="/hats/new" element={<CreateHatForm />} />
+          <Route path="/hats/delete" element={<DeleteHat />} />
           {/* <Route path="/hats/:id" element={<HatDetails />} /> */}
           <Route path="shoes">
             <Route path="" element={<ShoesList shoes={props.shoes} /> } />

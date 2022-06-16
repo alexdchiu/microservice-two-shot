@@ -1,10 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-
+import HatsListTable from './HatsListTable';
 
 
 function HatColumn(props) {
-  // console.log(props)
+  console.log(props)
 
   async function handleDelete(e) {
     console.log(e.target.value)
@@ -45,14 +45,13 @@ function HatColumn(props) {
   );
 }
 
-
-
 class HatsList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       hatColumns: [[], [], []],
     }
+    this.getHats = this.getHats.bind(this)
   }
 
   async getHats () {
@@ -107,15 +106,15 @@ class HatsList extends React.Component {
     return (
       <div className="container">
           <h2>Hats</h2>
-          <div>
-            <NavLink className="nav-link" aria-current="page" to="/hats/new"><button className="btn btn-primary">Create New Hat</button></NavLink>
-          </div>
           <div className="row">
             {this.state.hatColumns.map((hatList, index) => {
               return (
                 <HatColumn key={index} list={hatList} getHats={this.getHats} />
               );
             })}
+          </div>
+          <div className='row'>
+            <HatsListTable hats={this.state.hatColumns.flat()}/>
           </div>
         </div>
     )
