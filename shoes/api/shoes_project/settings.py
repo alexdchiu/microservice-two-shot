@@ -29,9 +29,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
+    "shoes_rest.apps.ShoesApiConfig",
     "corsheaders",
     'django.contrib.admin',
     'django.contrib.auth',
