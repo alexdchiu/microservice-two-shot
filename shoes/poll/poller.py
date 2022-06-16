@@ -15,15 +15,16 @@ django.setup()
 from shoes_rest.models import BinVO 
 
 def get_bins():
-    response = requests.get("http://localhost:8100/api/bins/")
+    response = requests.get("http://wardrobe-api:8000/api/bins/")
     content = json.loads(response.content)
     for bin in content["bins"]:
         BinVO.objects.update_or_create(
-            closet_name = bin["closet_name"],
-            bin_number = bin["bin_number"],
-            bin_size = bin["bin_size"], 
-            href = bin["href"],
-            #defaults might not be necessary 
+            href = bin["href"], 
+            defaults = {
+            "closet_name": bin["closet_name"],
+            "bin_number": bin["bin_number"],
+            "bin_size": bin["bin_size"], 
+            }
         )
 
 

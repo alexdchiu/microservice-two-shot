@@ -11,6 +11,9 @@ class BinVO(models.Model):
     bin_size =  models.PositiveSmallIntegerField()
     href = models.CharField(max_length=200, unique=True)
 
+    def __str__(self):
+        return self.closet_name
+
 
 class Shoes(models.Model):
 

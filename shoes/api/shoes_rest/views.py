@@ -8,11 +8,11 @@ from .models import Shoes, BinVO
 
 class BinVODetailEncoder(ModelEncoder): 
     model = BinVO 
-    properties = ["closet", "binnum", "binsize", "href"] 
+    properties = ["closet_name", "bin_number", "bin_size", "href"] 
 
 class ShoeListEncoder(ModelEncoder): 
     model = Shoes 
-    properties = ["manufactuer", "name"] 
+    properties = ["manufacturer", "name"] 
     #instead of pulling bin in properties getting it in get_extra_data 
 
     def get_extra_data(self, o):
@@ -22,7 +22,7 @@ class ShoeListEncoder(ModelEncoder):
     
 class ShoeDetailEncoder(ModelEncoder):
     model = Shoes
-    properties = ["manufactuer", "name", "color", "url", "bin"]
+    properties = ["manufacturer", "name", "color", "picurl", "bin"]
     encoders = {
         "bin": BinVODetailEncoder(),
     }
@@ -42,8 +42,7 @@ def api_list_shoes(request, bin_vo_id=None):
         content = json.loads(request.body)
         # Get the Bin object and put it in the content dict
         try:
-            bin_href = content["bin"]
-            bin = BinVO.objects.get(href=bin_href)
+            bin = BinVO.objects.get(href=content["bin"])
             content["bin"] = bin
             #not sure about this logic 
         except BinVO.DoesNotExist:
@@ -57,11 +56,16 @@ def api_list_shoes(request, bin_vo_id=None):
             encoder=ShoeDetailEncoder,
             safe=False,
         )
-
+@require_http_methods(["GET", "DELETE"])
 def api_show_shoe(request, pk):
-    shoe = Shoes.objects.get(id=pk)
-    return JsonResponse(
-        shoe,
-        encoder=ShoeDetailEncoder,
-        safe=False,
-    )
+    if request.method == "GET":
+        shoe = Shoes.objects.get(id=pk)
+        return JsonResponse(
+            shoe,
+            encoder=ShoeDetailEncoder,
+            safe=False,
+        )
+    else: 
+        count, _ = Shoes.objects.filter(id=pk).delete()
+        return JsonResponse({"deleted": count > 0})
+
