@@ -29,7 +29,8 @@ class HatDetailEncoder(ModelEncoder):
     "style",
     "color",
     "pic_url",
-    "location"
+    "location",
+    "id"
   ]
   encoders = {
     "location": LocationVODetailEncoder(),
