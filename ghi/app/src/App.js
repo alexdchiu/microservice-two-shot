@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import DeleteShoe from './DeleteShoe';
 import MainPage from './MainPage';
 import Nav from './Nav'; 
 import ShoeForm from './ShoeForm';
@@ -17,6 +18,9 @@ function App(props) {
           </Route>
           <Route path="shoes">
             <Route path="new" element={<ShoeForm />} />
+          </Route>
+          <Route path="shoes">
+            <Route path="delete" element={<DeleteShoe />} />
           </Route>
         </Routes>
 

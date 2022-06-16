@@ -14,7 +14,7 @@ async function loadShoesandHats() {
   const response = await fetch('http://localhost:8080/shoes/');
   if (response.ok) {
     const data = await response.json() 
-    console.log(data)
+    console.log('data from index.js: ', data)
     root.render(
       <React.StrictMode>
         <App shoes={data.shoes} />
