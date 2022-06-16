@@ -24,6 +24,6 @@ urlpatterns = [
         'locations/<int:location_vo_id>/hats/',
         api_list_hats,
         name="list_hats",
-    )
+    ),
     path('hats/<int:pk>/', api_show_hat, name="api_show_hat")
 ]

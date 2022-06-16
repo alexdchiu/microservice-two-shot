@@ -11,19 +11,19 @@ django.setup()
 
 # Import models from hats_rest, here.
 # from hats_rest.models import Something
-from api.hats_rest.models import LocationVO
+from hats_rest.models import LocationVO
 
 def get_locations():
-    response = requests.get("http://localhost:8100/api/locations/")
+    response = requests.get("http://wardrobe-api:8000/api/locations/")
     content = json.loads(response.content)
     for location in content["locations"]:
         LocationVO.objects.update_or_create(
-            "href": location["href"],
-            "closet_name": location["closet_name"],
-            "section_number": location["section_number"],
-            "shelf_number": location["shelf_number"],
-            # defaults={
-            # }
+            href= location["href"],
+            defaults={
+                "closet_name": location["closet_name"],
+                "section_number": location["section_number"],
+                "shelf_number": location["shelf_number"],
+            }
         )
 
 def poll():
@@ -32,7 +32,7 @@ def poll():
         try:
             # Write your polling logic, here
             get_locations()
-            
+            pass
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)

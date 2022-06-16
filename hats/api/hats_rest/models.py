@@ -9,6 +9,9 @@ class LocationVO(models.Model):
   section_number = models.PositiveSmallIntegerField()
   shelf_number = models.PositiveSmallIntegerField()
 
+  def __str__(self):
+        return f'{self.closet_name} - Sec # {self.section_number} / Shelf # {self.shelf_number}'
+
 class Hat(models.Model):
   fabric = models.CharField(max_length=200)
   style = models.CharField(max_length=200)
@@ -21,7 +24,7 @@ class Hat(models.Model):
   )
 
   def __str__(self):
-        return self.name
+        return f'{self.style} - {self.color}'
 
   # def get_api_url(self):
   #       return reverse("api_show_hat", kwargs={"pk": self.pk})

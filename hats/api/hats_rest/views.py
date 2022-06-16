@@ -5,17 +5,17 @@ import json
 from django.shortcuts import render
 from pkg_resources import require
 
-from hats.api.common.json import ModelEncoder
-from hats.api.hats_rest.models import Hat, LocationVO
+from common.json import ModelEncoder
+from .models import Hat, LocationVO
 
 # Create your views here.
 class LocationVODetailEncoder(ModelEncoder):
   model = LocationVO
-  properties = ["href", "closet_name", "section_name", "shelf_number"]
+  properties = ["href", "closet_name", "section_number", "shelf_number"]
 
 class HatListEncoder(ModelEncoder):
   model = Hat
-  properties = ["fabric", "style", "color", "pic_url",]
+  properties = ["fabric", "style", "color", "pic_url", "id"]
 
   def get_extra_data(self, o):
     return {"location": o.location.href}
@@ -48,6 +48,7 @@ def api_list_hats(request, location_vo_id=None):
   
   else:
     content = json.loads(request.body)
+    print(content)
 
     try:
       location_href = content['location']
@@ -66,11 +67,16 @@ def api_list_hats(request, location_vo_id=None):
       safe=False,
     )
 
-
+@require_http_methods(["DELETE", "GET"])
 def api_show_hat(request, pk):
-  hat = Hat.objects.get(id=pk)
-  return JsonResponse(
-    hat,
-    encoder=HatDetailEncoder,
-    safe=False,
-  )
+  if request.method == "GET":
+    hat = Hat.objects.get(id=pk)
+    return JsonResponse(
+      hat,
+      encoder=HatDetailEncoder,
+      safe=False,
+    )
+  
+  else: 
+    count, _ = Hat.objects.filter(id=pk).delete()
+    return JsonResponse({"deleted": count > 0})
