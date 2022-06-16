@@ -12,8 +12,7 @@ class BinVODetailEncoder(ModelEncoder):
 
 class ShoeListEncoder(ModelEncoder): 
     model = Shoes 
-    properties = ["manufacturer", "name"] 
-    #instead of pulling bin in properties getting it in get_extra_data 
+    properties = ["manufacturer", "name", "color", "picurl", "id"]
 
     def get_extra_data(self, o):
         return {
@@ -22,7 +21,7 @@ class ShoeListEncoder(ModelEncoder):
     
 class ShoeDetailEncoder(ModelEncoder):
     model = Shoes
-    properties = ["manufacturer", "name", "color", "picurl", "bin"]
+    properties = ["manufacturer", "name", "color", "picurl", "id"]
     encoders = {
         "bin": BinVODetailEncoder(),
     }
