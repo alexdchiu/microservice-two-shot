@@ -11,19 +11,21 @@ root.render(
 
 
 async function loadShoesandHats() {
-  const response = await fetch('http://localhost:8080/shoes/');
-  // const hatResponse = await fetch('http://localhost:8090/hats/');
-  if (response.ok) {
-    const data = await response.json() 
-    // const hatData = await hatResponse
-    console.log('data from index.js: ', data)
+  const shoeResponse = await fetch('http://localhost:8080/shoes/');
+  const hatResponse = await fetch('http://localhost:8090/hats/');
+  if (shoeResponse.ok && hatResponse.ok) {
+    const shoeData = await shoeResponse.json() 
+    const hatData = await hatResponse.json()
+    console.log('shoeData from index.js: ', shoeData)
+    console.log('hatData from index.js: ', hatData)
     root.render(
       <React.StrictMode>
-        <App shoes={data.shoes} />
+        <App shoes={shoeData.shoes} hats={hatData.hats} />
       </React.StrictMode>
     );
   } else {
-    console.error(response);
+    console.error('shoeData:', shoeResponse);
+    console.error('hatData:', hatResponse);
   }
 }
 loadShoesandHats();
